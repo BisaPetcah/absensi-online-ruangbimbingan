@@ -1,0 +1,399 @@
+<?php
+//Template
+    function head($tittle, $href){
+        
+        $value = '<!DOCTYPE html>
+                <html lang="en">
+                
+                <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <title>'.$tittle.'</title>
+                    <link rel="stylesheet" href="'.$href.'../Assets/vendors/feather/feather.css">
+                    <link rel="stylesheet" href="'.$href.'../Assets/vendors/ti-icons/css/themify-icons.css">
+                    <link rel="stylesheet" href="'.$href.'../Assets/vendors/css/vendor.bundle.base.css">
+                    <link rel="stylesheet" href="'.$href.'../Assets/css/vertical-layout-light/style.css">
+                    <link rel="shortcut icon" href="'.$href.'../Assets/images/favicon.png"/>
+                </head>
+                
+                <body>';
+
+        return $value;
+    }
+
+    function footer($href){
+        $value =         '<footer class="footer">
+                                <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block"> Copyright © 2021 All rights reserved.</span>
+                                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+                <script src="'.$href.'vendors/js/vendor.bundle.base.js"></script>
+                <script src="'.$href.'vendors/datatables.net/jquery.dataTables.js"></script>
+                <script src="'.$href.'js/off-canvas.js"></script>
+                <script src="'.$href.'js/hoverable-collapse.js"></script>
+                <script src="'.$href.'js/template.js"></script>
+            </body>
+            </html>';
+        return $value;
+    }   
+
+
+// ==============================================================
+
+// Admin Dashboard
+    function daftarKelasAdmin($conn){
+        $query = "SELECT `kelas`.`id_kelas`, `kelas`.`nama_kelas`, COUNT( `siswa`.`id_siswa`) as siswa
+        FROM `kelas`
+        JOIN `siswa` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
+        GROUP BY `kelas`.`id_kelas`";
+        $result = mysqli_query($conn, $query);
+
+        return $result;
+    }
+
+    function profileAdmin($conn, $username) {
+        $query = "SELECT  `profile_admin`.`id_akun`, `profile_admin`.`nama`, `profile_admin`.`alamat`, `profile_admin`.`foto_profile`, `profile_admin`.`level`,`akun_admin`.`username`
+            FROM `profile_admin`
+            JOIN `akun_admin` ON `akun_admin`.`id_akun` = `profile_admin`.`id_akun`
+            WHERE `akun_admin`.`username` = '$username' ";
+        $result = mysqli_query($conn, $query);
+        $result = mysqli_fetch_assoc($result);
+
+        return $result;
+    }
+// ==============================================================
+
+// Guru Dashboard
+function daftarKelasGuru($conn, $id_akun) {
+    $query = "SELECT  `kelas`.`id_kelas`, `kelas`.`nama_kelas`, COUNT( `siswa`.`id_siswa`) as siswa
+    FROM `kelas`
+    JOIN `siswa` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
+    WHERE `id_akun` = '$id_akun'
+    GROUP BY `kelas`.`id_kelas`";
+    $data = mysqli_query($conn, $query);
+    $rows = array();
+    while ($row = mysqli_fetch_assoc($data)) {
+        $rows[] = $row;
+    }
+
+    return $rows;
+}
+
+function profileGuru($conn, $username) {
+    $query = "SELECT  `profile_guru`.`id_akun`, `profile_guru`.`nama`, `profile_guru`.`alamat`, `profile_guru`.`foto_profile`, `profile_guru`.`level`,`akun_guru`.`username`
+          FROM `profile_guru`
+          JOIN `akun_guru` ON `akun_guru`.`id_akun` = `profile_guru`.`id_akun`
+          WHERE `akun_guru`.`username` = '$username' ";
+    $result = mysqli_query($conn, $query);
+    $result = mysqli_fetch_assoc($result);
+
+    return $result;
+}
+// ============================================================== 
+
+// Guru - Tombol
+    function daftarGuru($conn) {
+        $query = "SELECT `akun_guru`.`id_akun`, `akun_guru`.`username`, `profile_guru`.`nama`, `profile_guru`.`alamat`, `profile_guru`.`noHp`, `profile_guru`.`foto_profile`
+            FROM `profile_guru`
+            JOIN `akun_guru` ON `akun_guru`.`id_akun` = `profile_guru`.`id_akun`";
+        $result = mysqli_query($conn, $query);
+
+        return $result;
+    }
+
+    function editProfileGuru($conn, $id_akun) {
+        $query = "SELECT `akun_guru`.`id_akun`, `akun_guru`.`username`, `akun_guru`.`password`, `profile_guru`.`nama`, `profile_guru`.`alamat`, `profile_guru`.`noHp`, `profile_guru`.`foto_profile`
+            FROM `profile_guru`
+            JOIN `akun_guru` ON `akun_guru`.`id_akun` = `profile_guru`.`id_akun`
+            WHERE `akun_guru`.`id_akun` = '$id_akun'";
+        $result = mysqli_query($conn, $query);
+        $result = mysqli_fetch_assoc($result);
+
+        return $result;
+    }
+
+    function ubahProfileGuru($conn, $post, $file, $id){
+        $nama = $post['nama'];
+        $alamat = $post['alamat'];
+        $noHp = $post['noHp'];
+        // `nama`='$nama',`alamat`='$alamat',`noHp`='$noHp',
+        $cek_ekstensi = array('jpg','png','jpeg');
+        $name = $file['foto_profile']['name'];
+        $size =$file['foto_profile']['size'];
+        $tmpCek = explode('.', $name);
+        $extensi = strtolower(end($tmpCek));
+        $tmpFile = $file['foto_profile']['tmp_name'];
+        if ($size == 0) {
+            // Do Nothing
+        } else {
+            // Jalankan Update
+            if(in_array($extensi, $cek_ekstensi) == true) {
+                if($size < 1000000) {
+                    $moveFile = 'images/foto-profile/guru/'. $name;
+                    move_uploaded_file($tmpFile, '../'.$moveFile );
+                    $query = "UPDATE `profile_guru` SET `foto_profile`='$moveFile' WHERE $id";
+
+                    if(mysqli_query($conn, $query)) {
+                        return "<script>alert('Gambar Berhasil Upload'); window.location.href = '../guru/daftar.php';</script>";
+                    } else {
+                        return "<script>alert('Gambar Gagal Upload'); window.location.href = '../guru/daftar';</script>";
+                    }
+                } else {
+                    return "<script>alert('Ukuran Gambar Terlalu Besar'); window.location.href = '../guru/daftar';</script>";
+                } 
+            }else {
+                    return "<script>alert('Ekstensi Tidak Mendukung'); window.location.href = '../guru/daftar';</script>";
+            }
+        }
+    }
+
+    function deleteGuru($conn, $id_akun) {
+        $querySelect = "SELECT `akun_guru`.`id_akun`, `profile_guru`.`id_profile`
+            FROM `profile_guru`
+            JOIN `akun_guru` ON `akun_guru`.`id_akun` = `profile_guru`.`id_akun`
+            WHERE `akun_guru`.`id_akun` = '$id_akun' ";
+        $result = mysqli_query($conn, $querySelect);
+        $result = mysqli_fetch_assoc($result);
+
+        $queryDeleteProfile = "DELETE FROM `profile_guru` WHERE `id_profile` = '$result[id_profile]'";
+        mysqli_query($conn, $queryDeleteProfile);
+        $queryDeleteAkun = "DELETE FROM `akun_guru` WHERE `id_akun` = '$result[id_akun]'";
+        mysqli_query($conn, $queryDeleteAkun);
+
+        $delete = mysqli_affected_rows($conn);
+        return $delete;
+    }
+// ==============================================================
+
+// Kelas - Tombol
+function tambahKelas($conn, $id_akun, $nama_kelas)
+{
+    $query = "INSERT INTO `kelas`(`id_kelas`, `id_akun`, `nama_kelas`)
+          VALUES (NULL, '$id_akun','$nama_kelas')";
+    $insert = mysqli_query($conn, $query);
+
+    if ($insert == true) {
+        return "<script>alert('Kelas berhasil ditambahkan'); window.location.href = '../kelas/daftar.php';</script>";
+    } else {
+        return "<script>alert('Kelas gagal ditambahkan'); window.location.href = '../kelas/daftar.php';</script>";
+    }
+}
+
+// Siswa - Tombol
+function daftarSiswa($conn, $id_akun) {
+    $query = "SELECT `siswa`.`id_siswa`, `siswa`.`foto_profile`, `siswa`.`nama_siswa`, `kelas`.`nama_kelas`, `siswa`.`alamat_siswa`, `siswa`.`noHp`
+    FROM `siswa`
+    JOIN `kelas` ON `kelas`.`id_kelas` = `siswa`.`id_kelas`
+    WHERE `kelas`.`id_akun` = $id_akun";
+    $result = mysqli_query($conn, $query);
+
+    return $result;
+}
+
+function tambahSiswa($conn, $post, $file) {
+    $id_kelas = $post['id_kelas'];
+    $nama_siswa = $post['nama_siswa'];
+    $jenis_kelamin = $post['jenis_kelamin'];
+    $alamat_siswa = $post['alamat_siswa'];
+    $noHp = $post['noHp'];
+    $catatan_khusus = $post['catatan_khusus'];
+
+    //Foto
+    $cek_ekstensi = array('jpg', 'png', 'jpeg');
+    $name = $file['foto_profile']['name'];
+    $size = $file['foto_profile']['size'];
+    $tmpCek = explode('.', $name);
+    $extensi = strtolower(end($tmpCek));
+    $tmpFile = $file['foto_profile']['tmp_name'];
+    if ($size > 1000000) {
+        // Tidak lakukan apapun
+    } else {
+        // Jalankan Query Insert
+        if (in_array($extensi, $cek_ekstensi) == true) {
+            if ($size < 1000000) {
+
+                $moveFile = 'images/foto-profile/siswa/' . $name;
+                move_uploaded_file($tmpFile, '../' . $moveFile);
+                $query = "INSERT INTO `siswa`(`id_siswa`, `id_kelas`, `nama_siswa`, `jenis_kelamin`, `alamat_siswa`, `noHp`, `foto_profile`, `catatan_khusus`)
+                         VALUES (NULL,'$id_kelas','$nama_siswa','$jenis_kelamin','$alamat_siswa','$noHp','$moveFile','$catatan_khusus')";
+                if (mysqli_query($conn, $query)) {
+                    return "<script>alert('Siswa ditambahkan!'); window.location.href = '../siswa/daftar.php';</script>";
+                } else {
+
+                    die;
+                    return "<script>alert('Gambar Gagal Upload'); window.location.href = '../siswa/tambah.php';</script>";
+                }
+            } else {
+                return "<script>alert('Ukuran Gambar Terlalu Besar'); window.location.href = '../siswa/tambah.php';</script>";
+            }
+        } else {
+            return "<script>alert('Ekstensi Tidak Didukung'); window.location.href = '../siswa/tambah.php';</script>";
+        }
+    }
+}
+// ==============================================================
+
+
+// Catatan - Tombol
+    function seleksiNamaGuru($conn, $id_akun) {
+        $query = "SELECT `nama` FROM `profile_guru` WHERE `id_akun` = '$id_akun' ";
+        $result = mysqli_query($conn, $query);
+        $result = mysqli_fetch_assoc($result);
+
+        return $result;
+    }
+
+    function catatanGuru($conn, $post, $id_akun) {
+        $tanggal = $post['tanggal'];
+        $catatan = $post['isi'];
+
+        $query ="INSERT INTO `catatan`(`id_catatan`, `id_akun`, `tanggal`, `isi`) 
+        VALUES (NULL,'$id_akun','$tanggal','$catatan')";
+        $insert = mysqli_query($conn,$query);
+        // var_dump($query, $post);
+        // die;
+        if($insert == true) {
+            return "<script>alert('Catatan berhasil ditambahkan'); window.location.href = 'catatan.php';</script>";
+        } else {
+            return "<script>alert('Catatan gagal ditambahkan'); window.location.href = 'catatan.php';</script>";
+        }
+    }
+// ==============================================================
+
+// Riwayat - Tombol
+    function daftarRiwayatCatatanAdmin($conn) {
+        $query = "SELECT `profile_guru`.`nama`, `catatan`.`tanggal`, `catatan`.`isi` 
+        FROM `catatan` 
+        JOIN `akun_guru` ON `catatan`.`id_akun` = `akun_guru`.`id_akun` 
+        JOIN `profile_guru` ON `profile_guru`.`id_akun` = `akun_guru`.`id_akun`  
+        ORDER BY `catatan`.`tanggal`  DESC";
+        $result = mysqli_query($conn, $query);
+
+        return $result;
+    }
+
+    function daftarRiwayatAbsensiAdmin($conn) {
+        $query = "SELECT `kegiatan`.`id_kegiatan`, `kegiatan`.`nama_kegiatan`, `kegiatan`.`tanggal`, `kegiatan`.`waktu_mulai`, `kegiatan`.`waktu_selesai`, SUM(IF(`absen`.`status` = 'Hadir', 1, 0)) AS hadir, SUM(IF(`absen`.`status` = 'Alpha', 1, 0)) AS alpha, SUM(IF(`absen`.`status` = 'Izin', 1, 0))AS izin, SUM(IF(`absen`.`status` = 'Sakit', 1, 0)) AS sakit
+        FROM `kegiatan`
+        JOIN `absen` ON `absen`.`id_kegiatan` = `kegiatan`.`id_kegiatan`
+        JOIN `kelas` ON `kelas`.`id_kelas` = `kegiatan`.`id_kelas`
+        GROUP BY `kegiatan`.`id_kegiatan`  
+        ORDER BY `kegiatan`.`tanggal` DESC, `kegiatan`.`waktu_mulai` DESC";
+        $result = mysqli_query($conn, $query);
+
+        return $result;
+    }
+
+    function daftarRiwayatCatatanGuru($conn, $id_akun) {
+        $query = "SELECT `profile_guru`.`nama`, `catatan`.`tanggal`, `catatan`.`isi` 
+        FROM `catatan` 
+        JOIN `akun_guru` ON `catatan`.`id_akun` = `akun_guru`.`id_akun` 
+        JOIN `profile_guru` ON `profile_guru`.`id_akun` = `akun_guru`.`id_akun`
+        WHERE `akun_guru`.`id_akun` = '$id_akun'
+        ORDER BY `catatan`.`tanggal`  DESC";
+        $result = mysqli_query($conn, $query);
+
+        return $result;
+    }
+
+    function daftarRiwayatAbsensiGuru($conn, $id_akun){
+        $query = "SELECT `kegiatan`.`id_kegiatan`, `kegiatan`.`nama_kegiatan`, `kegiatan`.`tanggal`, `kegiatan`.`waktu_mulai`, `kegiatan`.`waktu_selesai`, SUM(IF(`absen`.`status` = 'Hadir', 1, 0)) AS hadir, SUM(IF(`absen`.`status` = 'Alpha', 1, 0)) AS alpha, SUM(IF(`absen`.`status` = 'Izin', 1, 0))AS izin, SUM(IF(`absen`.`status` = 'Sakit', 1, 0)) AS sakit
+        FROM `kegiatan`
+        JOIN `absen` ON `absen`.`id_kegiatan` = `kegiatan`.`id_kegiatan`
+        JOIN `kelas` ON `kelas`.`id_kelas` = `kegiatan`.`id_kelas`
+        WHERE `kelas`.`id_akun` = '$id_akun'
+        GROUP BY `kegiatan`.`id_kegiatan`
+        ORDER BY `kegiatan`.`tanggal` DESC, `kegiatan`.`waktu_mulai` DESC";
+        $result = mysqli_query($conn, $query);
+
+        return $result;
+    }
+
+    function detailRiwayatKegiatan($conn, $id) {
+        $query = "SELECT `kegiatan`.`nama_kegiatan`, `kegiatan`.`tanggal`, `kegiatan`.`waktu_mulai`, `kegiatan`.`waktu_selesai` 
+        FROM `kegiatan`
+        WHERE `kegiatan`.`id_kegiatan` = $id";
+        $result = mysqli_query($conn, $query);
+        $result = mysqli_fetch_assoc($result);
+
+        return $result;
+    }
+
+    function detailRiwayatAbsen($conn, $id){
+        $query = "SELECT  `siswa`.`foto_profile`, `siswa`.`nama_siswa`, `absen`.`status`, `bukti`.`foto_bukti`
+        FROM `absen`
+        JOIN `kegiatan` ON `kegiatan`.`id_kegiatan` = `absen`.`id_kegiatan`
+        JOIN `siswa` ON `siswa`.`id_siswa` = `absen`.`id_siswa`
+        JOIN `bukti` ON `bukti`.`id_kegiatan` = `kegiatan`.`id_kegiatan`
+        WHERE `absen`.`id_kegiatan` = $id";
+        $result = mysqli_query($conn, $query);
+
+        return $result;
+    }
+// ==============================================================
+
+
+    // Func absensi
+        function tambahKegiatan($conn, $post) {
+            $id_kelas = $post['id_kelas'];
+            $nama_kegiatan = $post['nama-kegiatan'];
+            $tanggal = $post['tanggal-kegiatan'];
+            $waktu_mulai = $post['waktu-mulai'];
+            $waktu_selesai = $post['waktu-selesai'];
+            $query = "INSERT
+            INTO kegiatan(id_kelas, nama_kegiatan, tanggal, waktu_mulai, waktu_selesai)
+            VALUE ($id_kelas, '$nama_kegiatan', '$tanggal', '$waktu_mulai', '$waktu_selesai')";
+
+            if ($conn->query($query)) {
+                return $conn->insert_id;
+            }
+            return false;
+        }
+
+        function tambahAbsen($conn, $id_kegiatan, $id_siswa, $kehadiran)
+        {
+            $status = $kehadiran;
+            $query = "INSERT
+            INTO absen(id_kegiatan, id_siswa, status)
+            VALUE ($id_kegiatan, $id_siswa, '$status')";
+
+            if ($conn->query($query)) {
+                return $conn->insert_id;
+            }
+            return false;
+        }
+
+        function tambahBukti($conn, $id_kegiatan, $id_kelas, $locateFile)
+        {
+            $foto_bukti = $locateFile;
+            $query = "INSERT
+            INTO bukti(id_kegiatan, id_kelas, foto_bukti)
+            VALUE ($id_kegiatan, $id_kelas, '$foto_bukti')";
+
+            if ($conn->query($query)) {
+                return $conn->insert_id;
+            }
+            return false;
+        }
+        // cek Foto
+        function cekFoto($file, int $size, array $ext, string $fileLocate)
+        {
+            $name = $file['name'];
+            $fileExt = explode('.', $name);
+            $fileExt = strtolower(end($fileExt));
+            $tmpFile = $file['tmp_name'];
+            if ($file['size'] > 0) {
+                // gambar ada
+                if (in_array($fileExt, $ext)) {
+                    $moveFile = $fileLocate . $name;
+                    move_uploaded_file($tmpFile, '../../' . $moveFile);
+                    return true;
+                }
+            }
+            return false;
+        }
+        // ==============================================================
