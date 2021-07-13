@@ -1,14 +1,38 @@
 <?php
-session_start();
-require "../../Action/config.php";
-include "../../Models/helper/template.php";
-include "../../Models/helper/function.php";
+    session_start();
+    require "../aksi/config.php";
+    include "../aksi/functionClass.php";
 
-$id_user = $_SESSION['user_id'];
-$user_roleid = $_SESSION['user_roleid'];
-$profile = profileUser($conn, $id_user);
-headMain($tittle = "Daily Report | Absen Detail", $href = baseURL);
+    //Seleksi Data
+    $level = $_SESSION['level'];
+    
+    if ($_SESSION['level'] == "Guru") {
+        $id = $_GET['id'];
+        $username = $_SESSION['username'];
+        $id_akun = $_SESSION['id_akunLogin'];
+        $result = profileGuru($conn, $username);
+        $daftarKelas = daftarKelasGuru($conn, $id_akun);
+        $riwayatKegiatan = detailRiwayatKegiatan($conn, $id);
+        $data = $riwayatKegiatan;
+        $riwayatAbsen = detailRiwayatAbsen($conn, $id);
+    }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Daily Report | Kelas</title>
+    <link rel="stylesheet" href="../vendors/feather/feather.css" />
+    <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css" />
+    <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css" />
+    <link rel="stylesheet" href="../vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="../css/vertical-layout-light/style.css" />
+    <link rel="shortcut icon" href="../images/favicon.png" />
+</head>
+<body>
     <div class="container-scroller">
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">

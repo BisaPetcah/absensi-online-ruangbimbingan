@@ -13,8 +13,8 @@ headMain($tittle = "Daily Report | Pembimbing", $href = baseURL);
 <div class="container-scroller">
 	<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 		<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-			<a class="navbar-brand brand-logo" href="index.php"><img src="<?= baseURL ?>/Assets/images/logo.png" class="mr-2" alt="logo" /></a>
-			<a class="navbar-brand brand-logo-mini" href="index.php"><img src="<?= baseURL ?>/Assets/images/logo.png" alt="logo" /></a>
+			<a class="navbar-brand brand-logo" href="index.php"><img src="<?= baseURL?>/Assets/images/logo.png" class="mr-2" alt="logo" /></a>
+			<a class="navbar-brand brand-logo-mini" href="index.php"><img src="<?= baseURL?>/Assets/images/logo.png" alt="logo" /></a>
 		</div>
 		<div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
 			<ul class="navbar-nav mr-lg-2">
@@ -45,17 +45,17 @@ headMain($tittle = "Daily Report | Pembimbing", $href = baseURL);
 		</div>
 	</nav>
 	<div class="container-fluid page-body-wrapper">
-		<nav class="sidebar sidebar-offcanvas" id="sidebar">
-			<div class="profile text-center mt-4">
-				<div class="row">
-					<div class="col">
-						<img src="../../<?= $profile['profile_foto'] ?>" width="120px" height="120px" alt="profile" />
-					</div>
-				</div>
-				<h4 class="mt-1"><?= $profile['profile_nama'] ?></h4>
-				<h5 class="text-primary">Admin</h5>
-				<a class="btn btn-primary btn-sm mt-2" href="">Ubah Profile</a>
-			</div>
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <div class="profile text-center mt-4">
+                <div class="row">
+                    <div class="col">
+                        <img src="../../<?= $profile['profile_foto']?>" width="120px" height="120px" alt="profile" />
+                        </div>
+                    </div>
+                    <h4 class="mt-1"><?= $profile['profile_nama']?></h4>
+                    <h5 class="text-primary">Admin</h5>
+                    <a class="btn btn-primary btn-sm mt-2" href="">Ubah Profile</a>
+            </div>
 			<ul class="nav">
 				<li class="nav-item">
 					<a class="nav-link" href="index.php">
@@ -130,15 +130,15 @@ headMain($tittle = "Daily Report | Pembimbing", $href = baseURL);
 										<?php while ($data = mysqli_fetch_assoc($daftarPembimbing)) : ?>
 											<tbody>
 												<tr>
-													<td><img src="<?= baseURL . $data['profile_foto'] ?>" alt="foto" /></td>
-													<td><?= $data['profile_nama'] ?></td>
-													<td><?= $data['user_email'] ?></td>
-													<td><?= $data['profile_alamat'] ?></td>
-													<td><?= $data['profile_noHp'] ?></td>
+													<td><img src="<?= baseURL.$data['profile_foto']?>" alt="foto" /></td>
+													<td><?= $data['profile_nama']?></td>
+													<td><?= $data['user_email']?></td>
+													<td><?= $data['profile_alamat']?></td>
+													<td><?= $data['profile_noHp']?></td>
 													<td>
 														<div class="btn-group">
-															<a class="btn btn-warning btn-sm btn-icon-text" href="pembimbing-edit.php?id=<?= $data['user_id'] ?>">Edit<i class="mdi mdi-pencil btn-icon-append"></i></a>
-															<a class="btn btn-danger btn-sm btn-icon-text" onclick="return confirm('Ingin dihapus?')" href="<?= baseURL ?>/Models/helper/delete/delete-pembimbing.php?id=<?= $data['user_id'] ?>">Hapus<i class="mdi mdi-delete btn-icon-append"></i></a>
+															<a class="btn btn-warning btn-sm btn-icon-text" href="pembimbing-edit.php?id=<?= $data['user_id']?>">Edit<i class="mdi mdi-pencil btn-icon-append"></i></a>
+															<a class="btn btn-danger btn-sm btn-icon-text" onclick="return confirm('Ingin dihapus?')" href="<?= baseURL?>/Models/helper/delete/delete-pembimbing.php?id=<?= $data['user_id']?>">Hapus<i class="mdi mdi-delete btn-icon-append"></i></a>
 														</div>
 													</td>
 												</tr>
@@ -151,19 +151,18 @@ headMain($tittle = "Daily Report | Pembimbing", $href = baseURL);
 					</div>
 				</div>
 			</div>
-			<footer class="footer">
-				<div class="d-sm-flex justify-content-center justify-content-sm-between">
-					<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021 All rights reserved.</span>
-					<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+					<footer class="footer">
+						<div class="d-sm-flex justify-content-center justify-content-sm-between">
+							<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021 All rights reserved.</span>
+							<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+						</div>
+					</footer>
 				</div>
-			</footer>
+			</div>
 		</div>
-	</div>
-</div>
-<script src="<?= baseURL ?>Assets/vendors/js/vendor.bundle.base.js"></script>
-<script src="<?= baseURL ?>Assets/js/off-canvas.js"></script>
-<script src="<?= baseURL ?>Assets/js/hoverable-collapse.js"></script>
-<script src="<?= baseURL ?>Assets/js/template.js"></script>
-</body>
-
+		<script src="../vendors/js/vendor.bundle.base.js"></script>
+		<script src="../js/off-canvas.js"></script>
+		<script src="../js/hoverable-collapse.js"></script>
+		<script src="../js/template.js"></script>
+	</body>
 </html>
