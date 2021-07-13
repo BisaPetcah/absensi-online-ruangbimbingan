@@ -1,6 +1,6 @@
 <?php
 
-const baseURL = "http://localhost/tes-dr/absensi-ruangbimbingan/";
+const baseURL = "http://localhost/apa-dr/absensi-ruangbimbingan/";
 
 // Admin
 function dataAllAdmin($conn, $id_user)

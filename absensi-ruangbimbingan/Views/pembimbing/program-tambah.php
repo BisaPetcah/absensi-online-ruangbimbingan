@@ -133,7 +133,7 @@ headMain($tittle = "Daily Report | Program Tambah", $href = baseURL);
                             <div class="card-body">
                                 <h4 class="card-title">Tambah Program</h4>
                                 <!-- Awal Form -->
-                                <form method="POST" class="form" action="<?= baseURL ?>Models/helper/pembimbing/tambahProgram.php">
+                                <form method="POST" class="form" action="Models/helper/pembimbing/tambahProgram.php">
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
@@ -143,11 +143,48 @@ headMain($tittle = "Daily Report | Program Tambah", $href = baseURL);
                                             </div>
                                             <div class="form-group">
                                                 <label for="nama-kelas">Daftar Siswa</label>
-                                                <select name="siswa[]" id="siswa" multiple="multiple" class="js-example-basic-single w-100">
+                                                <select name="siswa[]" id="siswa" multiple="multiple"
+                                                        class="js-example-basic-single w-100">
                                                     <?php while ($siswa = mysqli_fetch_assoc($daftarSiswa)) : ?>
                                                         <option value="<?= $siswa['user_id'] ?>"><?= $siswa['profile_nama'] ?></option>
                                                     <?php endwhile ?>
                                                 </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="deskripsi-program">Deskripsi Program</label>
+                                                <textarea class="form-control" name="deskripsi_program"
+                                                          id="deskripsi-program" cols="30" rows="10"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <?php
+                                                $arrHari = array(
+                                                    'senin',
+                                                    'selasa',
+                                                    'rabu',
+                                                    'kamis',
+                                                    'jumat',
+                                                    'sabtu',
+                                                    'minggu',
+                                                );
+                                                ?>
+                                                <?php foreach ($arrHari as $hari) : ?>
+                                                    <div class="row">
+                                                        <div class="col-2 d-flex align-items-center">
+                                                            <h4><?= ucwords($hari) ?></h4>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="row ">
+                                                                <div class="col"><input type="time" class="form-control"
+                                                                                        name="waktu[<?= $hari ?>][]"></div>
+                                                                <div class="col-1 d-flex align-items-center justify-content-center">
+                                                                    -
+                                                                </div>
+                                                                <div class="col"><input type="time" class="form-control"
+                                                                                        name="waktu[<?= $hari ?>][]"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach; ?>
                                             </div>
                                         </div>
                                     </div>
