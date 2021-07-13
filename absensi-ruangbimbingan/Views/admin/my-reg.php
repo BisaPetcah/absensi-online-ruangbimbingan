@@ -14,7 +14,7 @@ echo headFirst($tittle = "Daily Report | Register Admin", $href = "../../");
             <div class="row mx-0">
                 <div class="col d-flex justify-content-center">
                     <div class="brand-logo">
-                        <img src="../../Assets/images/logo.png" alt="logo">
+                        <img src="<?= baseURL?>Assets/images/logo.png" alt="logo">
                     </div>
                 </div>
             </div>
@@ -23,28 +23,30 @@ echo headFirst($tittle = "Daily Report | Register Admin", $href = "../../");
                     <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                         <h4>Registrasi Admin</h4>
                         <!-- Awal Form Register -->
-                        <form action="<?= baseURL?>/Models/helper/register/register-admin" method="POST" enctype="multipart/form-data" class="pt-3" validated>
+                        <form action="<?= baseURL?>/Models/helper/admin/register-admin" method="POST" enctype="multipart/form-data" class="pt-3" validated>
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-lg" id="nama" placeholder="Masukkan Anda" name="nama" required
                                 oninvalid="this.setCustomValidity('Anda belum mengisi nama')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="username" placeholder="Masukkan Username" name="username" required>
+                                <input type="text" class="form-control form-control-lg" id="username" placeholder="Masukkan Username" name="username" required
+                                oninvalid="this.setCustomValidity('Anda belum mengisi username')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control form-control-lg" id="email" placeholder="Masukkan Email" name="email" required>
+                                <input type="email" class="form-control form-control-lg" id="email" placeholder="Masukkan Email" name="email" required
+                                oninvalid="this.setCustomValidity('Anda belum mengisi email')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="password" placeholder="Masukkan Password" name="password" required>
+                                <input type="text" class="form-control form-control-lg" id="password" placeholder="Masukkan Password" name="password" required
+                                oninvalid="this.setCustomValidity('Anda belum mengisi password')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control form-control-lg" id="cekpassword" placeholder="Masukkan Kembali Password" name="cekpassword" required>
+                            <textarea class="form-control form-control-lg" id="alamat" rows="5" placeholder="Masukkan Alamat" name="alamat" required
+                            oninvalid="this.setCustomValidity('Anda belum mengisi alamat')" oninput="this.setCustomValidity('')"></textarea>
                             </div>
                             <div class="form-group">
-                            <textarea class="form-control form-control-lg" id="alamat" rows="5" placeholder="Masukkan Alamat" name="alamat" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="number" class="form-control form-control-lg" id="exampleInputNoHp" placeholder="No Hp" name="noHp" required>
+                                <input type="number" class="form-control form-control-lg" id="exampleInputNoHp" placeholder="No Hp" name="noHp" required
+                                oninvalid="this.setCustomValidity('Anda belum mengisi nomor telepon')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                         <label>Upload Foto</label>
@@ -59,7 +61,8 @@ echo headFirst($tittle = "Daily Report | Register Admin", $href = "../../");
                                 <div class="mt-4">
                                     <div class="form-check">
                                         <label class="form-check-label text-muted">
-                                            <input type="checkbox" class="form-check-input" required>
+                                            <input type="checkbox" class="form-check-input" required
+                                            oninvalid="this.setCustomValidity('Mohon periksa kembali data anda!')" oninput="this.setCustomValidity('')">
                                             Data sudah benar?
                                         </label>
                                     </div>

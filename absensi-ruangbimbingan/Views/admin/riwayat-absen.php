@@ -7,10 +7,8 @@ include "../../Models/helper/function.php";
 $id_user = $_SESSION['user_id'];
 $user_roleid = $_SESSION['user_roleid'];
 $profile = profileUser($conn, $id_user);
-headMain($tittle = "Daily Report | Dashboard", $href = baseURL);
+headMain($tittle = "Daily Report | Riwayat Absen", $href = baseURL);
 ?>
-
-
 <div class="container-scroller">
 	<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 		<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">

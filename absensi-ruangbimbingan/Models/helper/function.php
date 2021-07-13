@@ -2,6 +2,13 @@
 
 const baseURL = "http://localhost/apa-dr/absensi-ruangbimbingan/";
 
+function dd($data)
+{
+    echo '<pre>';
+    die(var_dump($data));
+    echo '</pre>';
+}
+
 // Admin
 function dataAllAdmin($conn, $id_user)
 {
@@ -84,7 +91,8 @@ WHERE mp.program_pembimbingid = $id_pembimbing
     return $result;
 }
 
-function jadwalProgram($conn, $id_pembimbing, $id_program) {
+function jadwalProgram($conn, $id_pembimbing, $id_program)
+{
     $query = "SELECT mw.waktu_id, mw.waktu_hari, mw.waktu_mulai, mw.waktu_selesai
     FROM m_program mp
 JOIN m_waktu mw on mp.program_id = mw.waktu_programId
