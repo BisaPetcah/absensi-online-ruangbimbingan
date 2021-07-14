@@ -7,13 +7,13 @@ include "../../Models/helper/function.php";
 $id_user = $_SESSION['user_id'];
 $user_roleid = $_SESSION['user_roleid'];
 $profile = profileUser($conn, $id_user);
-headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
+headMain($tittle = "Daily Report | Riwayat Absen", $href = baseURL);
 ?>
 <div class="container-scroller">
 	<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 		<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-			<a class="navbar-brand brand-logo" href="../index.php"><img src="../images/logo.png" class="mr-2" alt="logo" /></a>
-			<a class="navbar-brand brand-logo-mini" href="../index.php"><img src="../images/logo.png" alt="logo" /></a>
+			<a class="navbar-brand brand-logo" href="index.php"><img src="<?= baseURL ?>Assets/images/logo.png" class="mr-2" alt="logo" /></a>
+			<a class="navbar-brand brand-logo-mini" href="index.php"><img src="<?= baseURL ?>Assets/images/logo.png" alt="logo" /></a>
 		</div>
 		<div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
 			<ul class="navbar-nav mr-lg-2">
@@ -31,7 +31,7 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
 			<ul class="navbar-nav" style="margin-left: auto">
 				<li class="nav-item d-none d-lg-block">
 					<h5>
-						<a href="../aksi/logout.php">
+						<a href="<?= baseURL ?>Models/helper/logout.php">
 							<i class="ti-power-off text-danger menu-icon"></i>
 							<span class="menu-title">Keluar</span>
 						</a>
@@ -53,65 +53,65 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
 				</div>
 				<h4 class="mt-1"><?= $profile['profile_nama'] ?></h4>
 				<h5 class="text-primary">Pembimbing</h5>
-				<a class="btn btn-primary btn-sm mt-2" href="">Ubah Profile</a>
+				<a class="btn btn-primary btn-sm mt-2" href="ubah-profile.php">Ubah Profile</a>
 			</div>
 			<ul class="nav">
 				<li class="nav-item">
-					<a class="nav-link" href="../index.php">
+					<a class="nav-link" href="index.php">
 						<i class="icon-grid menu-icon"></i>
 						<span class="menu-title">Dashboard</span>
 					</a>
 				</li>
-				<?php if ($_SESSION['level'] == "Guru") : ?>
-					<li class="nav-item">
-						<a class="nav-link" data-toggle="collapse" href="#siswa" aria-expanded="false" aria-controls="siswa">
-							<i class="mdi mdi-account-multiple menu-icon"></i>
-							<span class="menu-title">Siswa</span>
-							<i class="menu-arrow"></i>
-						</a>
-						<div class="collapse" id="siswa">
-							<ul class="nav flex-column sub-menu">
-								<li class="nav-item"><a class="nav-link" href="../siswa/daftar.php"> Daftar Siswa </a></li>
-								<li class="nav-item"><a class="nav-link" href="../siswa/tambah.php"> Tambah Siswa </a></li>
-							</ul>
-						</div>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" data-toggle="collapse" href="#kelas" aria-expanded="false" aria-controls="kelas">
-							<i class="mdi mdi-account-multiple menu-icon"></i>
-							<span class="menu-title">Kelas</span>
-							<i class="menu-arrow"></i>
-						</a>
-						<div class="collapse" id="kelas">
-							<ul class="nav flex-column sub-menu">
-								<li class="nav-item"><a class="nav-link" href="daftar.php"> Daftar Kelas </a></li>
-								<li class="nav-item"><a class="nav-link" href="tambah.php"> Tambah Kelas </a></li>
-							</ul>
-						</div>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="../absensi.php">
-							<i class="mdi mdi-account-check menu-icon"></i>
-							<span class="menu-title">Absensi</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="../catatan.php">
-							<i class="mdi mdi-checkbox-marked-outline menu-icon"></i>
-							<span class="menu-title">Catatan</span>
-						</a>
-					</li>
-				<?php endif; ?>
-				<li class="nav-item active">
-					<a class="nav-link" data-toggle="collapse" href="#riwayat" aria-expanded="false" aria-controls="kelas">
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="collapse" href="#program" aria-expanded="false" aria-controls="program">
+						<i class="mdi mdi-account-multiple menu-icon"></i>
+						<span class="menu-title">Program</span>
+						<i class="menu-arrow"></i>
+					</a>
+					<div class="collapse" id="program">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="program-daftar.php"> Daftar Program </a></li>
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="program-tambah.php"> Tambah Program</a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="collapse" href="#siswa" aria-expanded="false" aria-controls="siswa">
+						<i class="mdi mdi-account-multiple menu-icon"></i>
+						<span class="menu-title">Siswa</span>
+						<i class="menu-arrow"></i>
+					</a>
+					<div class="collapse" id="siswa">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-daftar.php">
+									Daftar Siswa </a></li>
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-tambah.php">
+									Tambah Siswa </a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="absensi.php">
+						<i class="mdi mdi-account-check menu-icon"></i>
+						<span class="menu-title">Absensi</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="catatan.php">
+						<i class="mdi mdi-checkbox-marked-outline menu-icon"></i>
+						<span class="menu-title">Catatan</span>
+					</a>
+				</li>
+				<li class="nav-item active ">
+					<a class="nav-link" data-toggle="collapse" href="#riwayat" aria-expanded="false" aria-controls="siswa">
 						<i class="mdi mdi-account-multiple menu-icon"></i>
 						<span class="menu-title">Riwayat</span>
 						<i class="menu-arrow"></i>
 					</a>
 					<div class="collapse show" id="riwayat">
 						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"><a class="nav-link" href="riwayat-absen.php"> Riwayat Absen </a></li>
-							<li class="nav-item"><a class="nav-link" href="riwayat-catatan.php"> Riwayat Catatan </a></li>
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="riwayat-absen.php"> Riwayat Absen </a></li>
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="riwayat-catatan.php"> Riwayat Catatan </a></li>
 						</ul>
 					</div>
 				</li>
@@ -159,37 +159,16 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
 												<th>Sakit</th>
 										</thead>
 										<tbody>
-											<!-- Session Admin -->
-											<?php if ($_SESSION['level'] == "Admin") : ?>
-												<?php while ($data = mysqli_fetch_assoc($riwayatAbsen)) : ?>
-													<tr>
-														<th><?= $data['tanggal'] ?></th>
-														<td><?= $data['waktu_mulai'] ?> - <?= $data['waktu_selesai'] ?></td>
-														<td><?= $data['nama_kegiatan'] ?></td>
-														<td><?= $data['hadir'] ?></td>
-														<td><?= $data['alpha'] ?></td>
-														<td><?= $data['izin'] ?></td>
-														<td><?= $data['sakit'] ?></td>
-														<td><a href="absensi-riwayat.php?id=<?= $data['id_kegiatan'] ?>">detail</a></td>
-													</tr>
-												<?php endwhile; ?>
-											<?php endif; ?>
-											<!-- Session Guru -->
-											<?php if ($_SESSION['level'] == "Guru") : ?>
-												<?php while ($data = mysqli_fetch_assoc($riwayatAbsen)) : ?>
-													<tr>
-														<th><?= $data['tanggal'] ?></th>
-														<td><?= $data['waktu_mulai'] ?> - <?= $data['waktu_selesai'] ?></td>
-														<td><?= $data['nama_kegiatan'] ?></td>
-														<td><?= $data['hadir'] ?></td>
-														<td><?= $data['alpha'] ?></td>
-														<td><?= $data['izin'] ?></td>
-														<td><?= $data['sakit'] ?></td>
-														<td><a href="absensi-riwayat.php?id=<?= $data['id_kegiatan'] ?>">detail</a></td>
-													</tr>
-												<?php endwhile; ?>
-											<?php endif; ?>
-										</tbody>
+											<tr>
+												<th></th>
+												<td> - </td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td><a href="absensi-riwayat.php?id=">detail</a></td>
+											</tr>
 									</table>
 								</div>
 							</div>

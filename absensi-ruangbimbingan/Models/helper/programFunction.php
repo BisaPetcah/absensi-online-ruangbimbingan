@@ -3,7 +3,7 @@ function tambahProgram($conn, $post) {
     $id_pembimbing = $post['user_id'];
     $nama_program = $post['nama_program'];
     $deskripsi_program = $post['deskripsi_program'];
-    $query = "INSERT INTO m_program VALUE (NULL, '$nama_program', '$deskripsi_program', $id_pembimbing)";
+    $query = "INSERT INTO m_program VALUE (NULL, '$nama_program', $id_pembimbing, '$deskripsi_program')";
     if (!$conn->query($query)) {
         return mysqli_error($conn);
     }

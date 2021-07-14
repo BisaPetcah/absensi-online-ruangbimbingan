@@ -4,12 +4,13 @@ require "../../../Action/config.php";
 include "../../../Models/helper/function.php";
 include "../../../Models/helper/programFunction.php";
 $_POST['user_id'] = $_SESSION['user_id'];
-header('Content-Type: application/json');
-//echo json_encode($_POST['waktu']);
-//die;
+// header('Content-Type: application/json');
 $listwaktu = $_POST['waktu'];
 $id_program = tambahProgram($conn, $_POST);
 $siswa = $_POST['siswa'];
+// echo json_encode($id_program);
+// die;
+// echo json_encode($siswa);
 foreach ($siswa as $id_siswa) {
     tambahUserProgram($conn, $id_program, $id_siswa);
 }
@@ -22,9 +23,9 @@ foreach ($listwaktu as $waktu_key => $waktu_value) {
         if (!$tes) {
             echo $tes;
             return;
+        } else {
+            header('Location: ../../../Views/pembimbing/program-daftar.php');
         }
     }
-//    echo json_encode($data);
+    //    echo json_encode($data);
 }
-
-header('Location: ../../../Views/pembimbing/program-daftar.php');

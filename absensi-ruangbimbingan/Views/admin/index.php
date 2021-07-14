@@ -12,14 +12,14 @@ headMain($tittle = "Daily Report | Dashboard", $href = baseURL);
 <div class="container-scroller">
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo" href="index.php"><img src="<?= baseURL?>/Assets/images/logo.png" class="mr-2" alt="logo" /></a>
-            <a class="navbar-brand brand-logo-mini" href="index.php"><img src="<?= baseURL?>/Assets/images/logo.png" alt="logo" /></a>
+            <a class="navbar-brand brand-logo" href="index.php"><img src="<?= baseURL ?>/Assets/images/logo.png" class="mr-2" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="index.php"><img src="<?= baseURL ?>/Assets/images/logo.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
             <ul class="navbar-nav" style="margin-left: auto">
                 <li class="nav-item d-none d-lg-block">
                     <h5>
-                        <a href="<?= baseURL?>Models//helper/logout.php">
+                        <a href="<?= baseURL ?>Models//helper/logout.php">
                             <i class="ti-power-off text-danger menu-icon"></i>
                             <span class="menu-title">Keluar</span>
                         </a>
@@ -36,12 +36,12 @@ headMain($tittle = "Daily Report | Dashboard", $href = baseURL);
             <div class="profile text-center mt-4">
                 <div class="row">
                     <div class="col">
-                        <img src="<?= baseURL.$profile['profile_foto']?>" width="120px" height="120px" alt="profile" />
-                        </div>
+                        <img src="<?= baseURL . $profile['profile_foto'] ?>" width="120px" height="120px" alt="profile" />
                     </div>
-                    <h4 class="mt-1"><?= $profile['profile_nama']?></h4>
-                    <h5 class="text-primary">Admin</h5>
-                    <a class="btn btn-primary btn-sm mt-2" href="ubah-profile.php?id=<?=$id_user?>">Ubah Profile</a>
+                </div>
+                <h4 class="mt-1"><?= $profile['profile_nama'] ?></h4>
+                <h5 class="text-primary">Admin</h5>
+                <a class="btn btn-primary btn-sm mt-2" href="ubah-profile.php?id=<?= $id_user ?>">Ubah Profile</a>
             </div>
             <ul class="nav">
                 <li class="nav-item active">
@@ -64,6 +64,21 @@ headMain($tittle = "Daily Report | Dashboard", $href = baseURL);
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#siswa" aria-expanded="false" aria-controls="siswa">
+                        <i class="mdi mdi-account-multiple menu-icon"></i>
+                        <span class="menu-title">Siswa</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="siswa">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-daftar.php">
+                                    Daftar Siswa </a></li>
+                            <li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-tambah.php">
+                                    Tambah Siswa </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#riwayat" aria-expanded="false" aria-controls="riwayat">
                         <i class="mdi mdi-account-multiple menu-icon"></i>
                         <span class="menu-title">Riwayat</span>
@@ -78,7 +93,7 @@ headMain($tittle = "Daily Report | Dashboard", $href = baseURL);
                 </li>
                 <hr class="d-lg-none" style="border: 1px solid #0066cc; width: 75%" />
                 <li class="nav-item d-lg-none">
-                    <a class="nav-link" href="<?= baseURL?>/Models/helper/logout.php">
+                    <a class="nav-link" href="<?= baseURL ?>/Models/helper/logout.php">
                         <i class="ti-power-off menu-icon"></i>
                         <span class="menu-title">Logout</span>
                     </a>

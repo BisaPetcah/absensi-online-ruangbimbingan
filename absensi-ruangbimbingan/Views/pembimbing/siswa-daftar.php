@@ -7,13 +7,16 @@ include "../../Models/helper/function.php";
 $id_user = $_SESSION['user_id'];
 $user_roleid = $_SESSION['user_roleid'];
 $profile = profileUser($conn, $id_user);
-headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
+headMain($tittle = "Daily Report | Siswa Daftar", $href = baseURL);
+$daftarSiswa = daftarSiswa($conn, $id_user);
 ?>
 <div class="container-scroller">
 	<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 		<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-			<a class="navbar-brand brand-logo" href="../index.php"><img src="../images/logo.png" class="mr-2" alt="logo" /></a>
-			<a class="navbar-brand brand-logo-mini" href="../index.php"><img src="../images/logo.png" alt="logo" /></a>
+			<a class="navbar-brand brand-logo" href="index.php"><img src="
+<?= baseURL ?>Assets/images/logo.png" class="mr-2" alt="logo" /></a>
+			<a class="navbar-brand brand-logo-mini" href="index.php"><img src="
+<?= baseURL ?>Assets/images/logo.png" alt="logo" /></a>
 		</div>
 		<div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
 			<ul class="navbar-nav mr-lg-2">
@@ -31,7 +34,7 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
 			<ul class="navbar-nav" style="margin-left: auto">
 				<li class="nav-item d-none d-lg-block">
 					<h5>
-						<a href="../aksi/logout.php">
+						<a href="<?= baseURL ?>Models/helper/logout.php">
 							<i class="ti-power-off text-danger menu-icon"></i>
 							<span class="menu-title">Keluar</span>
 						</a>
@@ -44,39 +47,37 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
 		</div>
 	</nav>
 	<div class="container-fluid page-body-wrapper">
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-            <div class="profile text-center mt-4">
-                <div class="row">
-                    <div class="col">
-                        <img src="<?= baseURL.$profile['profile_foto']?>" width="120px" height="120px" alt="profile" />
-                        </div>
-                    </div>
-                    <h4 class="mt-1"><?= $profile['profile_nama']?></h4>
-                    <h5 class="text-primary">Pembimbing</h5>
-                    <a class="btn btn-primary btn-sm mt-2" href="">Ubah Profile</a>
-            </div>
+		<nav class="sidebar sidebar-offcanvas" id="sidebar">
+			<div class="profile text-center mt-4">
+				<div class="row">
+					<div class="col">
+						<img src="<?= baseURL . $profile['profile_foto'] ?>" width="120px" height="120px" alt="profile" />
+					</div>
+				</div>
+				<h4 class="mt-1"><?= $profile['profile_nama'] ?></h4>
+				<h5 class="text-primary">Pembimbing</h5>
+				<a class="btn btn-primary btn-sm mt-2" href="ubah-profile.php">Ubah Profile</a>
+			</div>
 			<ul class="nav">
-				<li class="nav-item">
-					<a class="nav-link" href="../index.php">
+				<li class="nav-item	">
+					<a class="nav-link" href="index.php">
 						<i class="icon-grid menu-icon"></i>
 						<span class="menu-title">Dashboard</span>
 					</a>
 				</li>
-				<?php if ($_SESSION['level'] == "Admin") : ?>
-					<li class="nav-item">
-						<a class="nav-link" data-toggle="collapse" href="#guru" aria-expanded="false" aria-controls="guru">
-							<i class="mdi mdi-account-multiple menu-icon"></i>
-							<span class="menu-title">Guru</span>
-							<i class="menu-arrow"></i>
-						</a>
-						<div class="collapse" id="guru">
-							<ul class="nav flex-column sub-menu">
-								<li class="nav-item"><a class="nav-link" href="../guru/daftar.php"> Daftar Guru </a></li>
-								<li class="nav-item"><a class="nav-link" href="../guru/tambah.php"> Tambah Guru </a></li>
-							</ul>
-						</div>
-					</li>
-				<?php endif; ?>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="collapse" href="#program" aria-expanded="false" aria-controls="program">
+						<i class="mdi mdi-account-multiple menu-icon"></i>
+						<span class="menu-title">Program</span>
+						<i class="menu-arrow"></i>
+					</a>
+					<div class="collapse" id="program">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="program-daftar.php"> Daftar Program </a></li>
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="program-tambah.php"> Tambah Program</a></li>
+						</ul>
+					</div>
+				</li>
 				<li class="nav-item active">
 					<a class="nav-link" data-toggle="collapse" href="#siswa" aria-expanded="false" aria-controls="siswa">
 						<i class="mdi mdi-account-multiple menu-icon"></i>
@@ -85,46 +86,35 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
 					</a>
 					<div class="collapse show" id="siswa">
 						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"><a class="nav-link" href="daftar.php"> Daftar Siswa </a></li>
-							<li class="nav-item"><a class="nav-link" href="tambah.php"> Tambah Siswa </a></li>
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-daftar.php">
+									Daftar Siswa </a></li>
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-tambah.php">
+									Tambah Siswa </a></li>
 						</ul>
 					</div>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="collapse" href="#kelas" aria-expanded="false" aria-controls="kelas">
-						<i class="mdi mdi-account-multiple menu-icon"></i>
-						<span class="menu-title">Kelas</span>
-						<i class="menu-arrow"></i>
-					</a>
-					<div class="collapse" id="kelas">
-						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"><a class="nav-link" href="../kelas/daftar.php"> Daftar Kelas </a></li>
-							<li class="nav-item"><a class="nav-link" href="../kelas/tambah.php"> Tambah Kelas </a></li>
-						</ul>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="../absensi.php">
+					<a class="nav-link" href="absensi.php">
 						<i class="mdi mdi-account-check menu-icon"></i>
 						<span class="menu-title">Absensi</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="../catatan.php">
+					<a class="nav-link" href="catatan.php">
 						<i class="mdi mdi-checkbox-marked-outline menu-icon"></i>
 						<span class="menu-title">Catatan</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="collapse" href="#riwayat" aria-expanded="false" aria-controls="kelas">
+					<a class="nav-link" data-toggle="collapse" href="#riwayat" aria-expanded="false" aria-controls="riwayat">
 						<i class="mdi mdi-account-multiple menu-icon"></i>
 						<span class="menu-title">Riwayat</span>
 						<i class="menu-arrow"></i>
 					</a>
 					<div class="collapse" id="riwayat">
 						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"><a class="nav-link" href="../riwayat/riwayat-absen.php"> Riwayat Absen </a></li>
-							<li class="nav-item"><a class="nav-link" href="../riwayat/riwayat-catatan.php"> Riwayat Catatan </a></li>
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="riwayat-absen.php"> Riwayat Absen </a></li>
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="riwayat-catatan.php"> Riwayat Catatan </a></li>
 						</ul>
 					</div>
 				</li>
@@ -160,7 +150,6 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
 											<tr>
 												<th>Foto</th>
 												<th>Nama</th>
-												<th>Kelas</th>
 												<th>Alamat</th>
 												<th>No HP</th>
 												<th class="text-center" width="100">Aksi</th>
@@ -169,15 +158,14 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
 										<tbody>
 											<?php while ($data = mysqli_fetch_assoc($daftarSiswa)) : ?>
 												<tr>
-													<td><img src="../<?= $data['foto_profile'] ?>" alt="" /></td>
-													<td><?= $data['nama_siswa'] ?></td>
-													<td><?= $data['nama_kelas'] ?></td>
-													<td><?= $data['alamat_siswa'] ?></td>
-													<td><?= $data['noHp'] ?></td>
+													<td><img src="<?= baseURL . $data['profile_foto'] ?>" alt="" /></td>
+													<td><?= $data['profile_nama'] ?></td>
+													<td><?= $data['profile_alamat'] ?></td>
+													<td><?= $data['profile_noHp'] ?></td>
 													<td>
 														<div class="btn-group">
-															<a class="btn btn-warning btn-sm btn-icon-text" href="edit.php">Edit<i class="mdi mdi-pencil btn-icon-append"></i></a>
-															<a class="btn btn-danger btn-sm btn-icon-text" href="../aksi/guru/deleteSiswa.php?id=<?= $data['id_siswa'] ?>">Hapus<i class="mdi mdi-delete btn-icon-append"></i></a>
+															<a class="btn btn-warning btn-sm btn-icon-text" href="siswa-edit.php?id=<?= $data['user_id'] ?>">Edit<i class="mdi mdi-pencil btn-icon-append"></i></a>
+															<a class="btn btn-danger btn-sm btn-icon-text" href="aksi/guru/deleteSiswa.php?id=<?= $data['user_id'] ?>">Hapus<i class="mdi mdi-delete btn-icon-append"></i></a>
 														</div>
 													</td>
 												</tr>
@@ -202,10 +190,12 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
 <script src="<?= baseURL ?>Assets/vendors/js/vendor.bundle.base.js"></script>
 <script src="<?= baseURL ?>Assets/vendors/datatables.net/jquery.dataTables.js"></script>
 <script src="<?= baseURL ?>Assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+<script src="<?= baseURL ?>Assets/vendors/select2/select2.min.js"></script>
 <script src="<?= baseURL ?>Assets/js/off-canvas.js"></script>
 <script src="<?= baseURL ?>Assets/js/hoverable-collapse.js"></script>
 <script src="<?= baseURL ?>Assets/js/template.js"></script>
-<script src="<?= baseURL ?>Assets/js/dashboard.js"></script>
+<script src="<?= baseURL ?>Assets/js/file-upload.js"></script>
+<script src="<?= baseURL ?>Assets/js/select2.js"></script>
 </body>
 
 </html>

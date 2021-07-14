@@ -7,19 +7,19 @@ include "../../Models/helper/function.php";
 $id_user = $_SESSION['user_id'];
 $user_roleid = $_SESSION['user_roleid'];
 $profile = profileUser($conn, $id_user);
-headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
+headMain($tittle = "Daily Report | Siswa Tambah", $href = baseURL);
 ?>
 <div class="container-scroller">
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
             <a class="navbar-brand brand-logo" href="index.php"><img src="<?= baseURL ?>/Assets/images/logo.png" class="mr-2" alt="logo" /></a>
-            <a class="navbar-brand brand-logo-mini" href="index.php"><img src="<?= baseURL ?>/Assetsimages/logo.png" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="index.php"><img src="<?= baseURL ?>/Assets/images/logo.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
             <ul class="navbar-nav" style="margin-left: auto">
                 <li class="nav-item d-none d-lg-block">
                     <h5>
-                        <a href="../aksi/logout.php">
+                        <a href="<?= baseURL ?>Models/helper/logout.php">
                             <i class="ti-power-off text-danger menu-icon"></i>
                             <span class="menu-title">Keluar</span>
                         </a>
@@ -41,10 +41,10 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
                 </div>
                 <h4 class="mt-1"><?= $profile['profile_nama'] ?></h4>
                 <h5 class="text-primary">Pembimbing</h5>
-                <a class="btn btn-primary btn-sm mt-2" href="">Ubah Profile</a>
+                <a class="btn btn-primary btn-sm mt-2" href="ubah-profile.php">Ubah Profile</a>
             </div>
             <ul class="nav">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.php">
                         <i class="icon-grid menu-icon"></i>
                         <span class="menu-title">Dashboard</span>
@@ -63,16 +63,18 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" data-toggle="collapse" href="#siswa" aria-expanded="false" aria-controls="siswa">
                         <i class="mdi mdi-account-multiple menu-icon"></i>
                         <span class="menu-title">Siswa</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="siswa">
+                    <div class="collapse show" id="siswa">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-daftar.php"> Daftar Siswa </a></li>
-                            <li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-tambah.php"> Tambah Siswa </a></li>
+                            <li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-daftar.php">
+                                    Daftar Siswa </a></li>
+                            <li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-tambah.php">
+                                    Tambah Siswa </a></li>
                         </ul>
                     </div>
                 </li>
@@ -103,9 +105,9 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
                 </li>
                 <hr class="d-lg-none" style="border: 1px solid #0066cc; width: 75%" />
                 <li class="nav-item d-lg-none">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="<?= baseURL ?>Models/helper/logout.php">
                         <i class="ti-power-off menu-icon"></i>
-                        <span class="menu-title">Logout</span>
+                        <span class="menu-title">Keluar</span>
                     </a>
                 </li>
             </ul>
@@ -118,41 +120,37 @@ headMain($tittle = "Daily Report | Tambah Siswa", $href = baseURL);
                             <div class="card-body">
                                 <h4 class="card-title">Register Siswa</h4>
                                 <!-- Awal Form -->
-                                <form method="POST" enctype="multipart/form-data" class="form">
+                                <form action="<?= baseURL ?>Models/helper/pembimbing/tambahSiswa.php" method="POST" enctype="multipart/form-data" class="form">
                                     <div class="form-group">
-                                        <label for="exampleInputName1">Nama</label>
-                                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Nama" name="nama_siswa" />
+                                        <label for="nama">Nama</label>
+                                        <input type="text" class="form-control" id="nama" placeholder="Nama" name="nama" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleSelectGender">Jenis Kelamin</label>
-                                        <select class="form-control" id="exampleSelectGender" name="jenis_kelamin">
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" id="username" placeholder="Username" name="username" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" placeholder="Password" name="password" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
                                             <option>Laki-laki</option>
                                             <option>Perempuan</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="kelas">Nama Kelas</label>
-                                        <div class="row">
-                                            <div class="col">
-                                                <select class="js-example-basic-single w-100" name="id_kelas">
-                                                    <?php foreach ($daftarKelas as $data) : ?>
-                                                        <option value="<?= $data['id_kelas'] ?>"><?= $data['nama_kelas'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        <label for="noHp">No HP</label>
+                                        <input type="number" class="form-control" id="noHp" placeholder="No HP" name="noHp" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputCity1">Alamat</label>
-                                        <input type="text" class="form-control" id="exampleInputCity1" placeholder="Alamat" name="alamat_siswa" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputCity1">No HP</label>
-                                        <input type="number" class="form-control" id="exampleInputCity1" placeholder="No HP" name="noHp" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleTextarea1">Catatan Khusus :</label>
-                                        <textarea class="form-control" id="exampleTextarea1" rows="4" name="catatan_khusus"></textarea>
+                                        <label for="alamat">Alamat</label>
+                                        <textarea class="form-control" id="alamat" rows="4" name="alamat"></textarea>
                                     </div>
                                     <div class="form-group mt-3">
                                         <label>Upload Foto</label>

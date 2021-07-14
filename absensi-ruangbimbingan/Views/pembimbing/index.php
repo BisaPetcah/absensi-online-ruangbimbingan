@@ -18,7 +18,6 @@ headMain($tittle = "Daily Report | Dashboard", $href = baseURL);
                                                                               alt="logo"/></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-
                 <ul class="navbar-nav" style="margin-left: auto">
                     <li class="nav-item d-none d-lg-block">
                         <h5>
@@ -46,7 +45,7 @@ headMain($tittle = "Daily Report | Dashboard", $href = baseURL);
                     </div>
                     <h4 class="mt-1"><?= $profile['profile_nama'] ?></h4>
                     <h5 class="text-primary">Pembimbing</h5>
-                    <a class="btn btn-primary btn-sm mt-2" href="">Ubah Profile</a>
+                    <a class="btn btn-primary btn-sm mt-2" href="ubah-profile.php">Ubah Profile</a>
                 </div>
                 <ul class="nav">
                     <li class="nav-item active">
@@ -111,7 +110,7 @@ headMain($tittle = "Daily Report | Dashboard", $href = baseURL);
                                 <li class="nav-item"><a class="nav-link" style="font-size:12px"
                                                         href="riwayat-absen.php"> Riwayat Absen </a></li>
                                 <li class="nav-item"><a class="nav-link" style="font-size:12px"
-                                                        href="riwayat-catata.php"> Riwayat Catatan </a></li>
+                                                        href="riwayat-catatan.php"> Riwayat Catatan </a></li>
                             </ul>
                         </div>
                     </li>

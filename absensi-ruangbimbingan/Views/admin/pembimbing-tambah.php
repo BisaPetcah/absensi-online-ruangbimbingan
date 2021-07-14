@@ -65,6 +65,21 @@ headMain($tittle = "Daily Report | Pembimbing", $href = baseURL);
                     </div>
                 </li>
                 <li class="nav-item">
+					<a class="nav-link" data-toggle="collapse" href="#siswa" aria-expanded="false" aria-controls="siswa">
+						<i class="mdi mdi-account-multiple menu-icon"></i>
+						<span class="menu-title">Siswa</span>
+						<i class="menu-arrow"></i>
+					</a>
+					<div class="collapse" id="siswa">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-daftar.php">
+									Daftar Siswa </a></li>
+							<li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-tambah.php">
+									Tambah Siswa </a></li>
+						</ul>
+					</div>
+				</li>
+                <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#riwayat" aria-expanded="false" aria-controls="riwayat">
                         <i class="mdi mdi-account-multiple menu-icon"></i>
                         <span class="menu-title">Riwayat</span>

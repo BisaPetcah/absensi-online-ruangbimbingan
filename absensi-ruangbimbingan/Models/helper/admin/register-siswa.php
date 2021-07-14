@@ -43,12 +43,12 @@ if ($cekUsername > 0) {
                if ($size < 1000000) {
                     //InsertUser
                     $queryUser = "INSERT INTO `m_user`(`user_id`, `user_username`, `user_email`, `user_password`, `user_isActive`, `user_roleid`) 
-                         VALUES (NULL,'$username','$email','$password','1','1')";
+                         VALUES (NULL,'$username','$email','$password','1','3')";
                     mysqli_query($conn, $queryUser);
                     $id_user = mysqli_insert_id($conn);
 
                     //InsertProfile
-                    $moveFile = 'Assets/images/documentation/foto-profile-pengguna/admin/' . $name;
+                    $moveFile = 'Assets/images/documentation/foto-profile-pengguna/siswa/' . $name;
                     move_uploaded_file($tmpFile, baseURL . $moveFile);
                     $queryProfile = "INSERT INTO `m_profile`(`profile_id`, `profile_nama`, `profile_alamat`, `profile_noHp`, `profile_foto`, `profile_userid`) 
                          VALUES (NULL,'$nama','$alamat','$noHp','$moveFile','$id_user')";

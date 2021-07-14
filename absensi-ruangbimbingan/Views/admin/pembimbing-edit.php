@@ -71,6 +71,21 @@ headMain($tittle = "Daily Report | Pembimbing Edit", $href = baseURL);
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#siswa" aria-expanded="false" aria-controls="siswa">
+                            <i class="mdi mdi-account-multiple menu-icon"></i>
+                            <span class="menu-title">Siswa</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="siswa">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-daftar.php">
+                                        Daftar Siswa </a></li>
+                                <li class="nav-item"><a class="nav-link" style="font-size:12px" href="siswa-tambah.php">
+                                        Tambah Siswa </a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#riwayat" aria-expanded="false" aria-controls="siswa">
                             <i class="mdi mdi-account-multiple menu-icon"></i>
                             <span class="menu-title">Riwayat</span>
@@ -143,13 +158,13 @@ headMain($tittle = "Daily Report | Pembimbing Edit", $href = baseURL);
         </div>
     </div>
 </div>
-<script src="<?= baseURL?>Assets/vendors/js/vendor.bundle.base.js"></script>
-<script src="<?= baseURL?>Assets/vendors/datatables.net/jquery.dataTables.js"></script>
-<script src="<?= baseURL?>Assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-<script src="<?= baseURL?>Assets/js/off-canvas.js"></script>
-<script src="<?= baseURL?>Assets/js/hoverable-collapse.js"></script>
-<script src="<?= baseURL?>Assets/js/template.js"></script>
-<script src="<?= baseURL?>Assets/js/file-upload.js"></script>
+<script src="<?= baseURL ?>Assets/vendors/js/vendor.bundle.base.js"></script>
+<script src="<?= baseURL ?>Assets/vendors/datatables.net/jquery.dataTables.js"></script>
+<script src="<?= baseURL ?>Assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+<script src="<?= baseURL ?>Assets/js/off-canvas.js"></script>
+<script src="<?= baseURL ?>Assets/js/hoverable-collapse.js"></script>
+<script src="<?= baseURL ?>Assets/js/template.js"></script>
+<script src="<?= baseURL ?>Assets/js/file-upload.js"></script>
 </body>
 
 </html>
